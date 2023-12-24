@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Test</title>
+</head>
+<body>
+    <h1>Emotion Test</h1>
+    <button onclick="startTest()">Start Test</button>
+    <button onclick="stopTest()">Stop Test</button>
+    <br>
+    <br>
+    <video id="video_feed" autoplay playsinline></video>
+    <br>
+    <br>
+    <a href="{% url 'download_results' %}" download>Download Results</a>
+
+    <script>
+        function startTest() {
+            fetch('/start_test')
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    startVideo();
+                });
+        }
+
+        function stopTest() {
+            fetch('/stop_test')
+                .then(response => response.text())
+                .then(data => alert(data));
+        }
+
+        function startVideo() {
+            const video = document.getElementById('video_feed');
+            video.src = '/video_feed/';
+        }
+    </script>
+</body>
+</html>
